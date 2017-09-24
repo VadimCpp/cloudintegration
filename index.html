@@ -8,10 +8,19 @@
     <script src="lib/js/kendo.all.min.js"></script>
 </head>
 <body>
-    <input id="cloud-service" value="1" />
+
+	<div id="app"></div>
+
+
+    
+
 
     <script>
         $(document).ready(function() {
+
+			var layout = new kendo.Layout("<header>Header<br><input id='cloud-service' value='1' /></header><section id='content'></section><footer></footer>");
+
+			layout.render($("#app"));
 
             function onChange() {
                 var value = $("#cloud-service").val();
