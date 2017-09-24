@@ -14,9 +14,26 @@
     <script>
         $(document).ready(function() {
 
-			var dropboxView = new kendo.View("<span>dropboxView</span>");
-			var googleDriveView = new kendo.View("<span>googleDriveView</span>");
-			var oneDriveView = new kendo.View("<span>oneDriveView</span>");
+            var dropboxView = new kendo.View("<span>dropboxView</span>");
+            var googleDriveView = new kendo.View("<span>googleDriveView</span>");
+            var oneDriveView = new kendo.View("<span>oneDriveView</span>");
+
+            var layout = new kendo.Layout("<header><input id='cloud-service' value='1' /></header><section id='content'></section>");
+            layout.render($("#app"));
+
+            var router = new kendo.Router();
+
+            router.route("/dropbox", function(params) {
+                layout.showIn("#content", dropboxView);
+            });
+
+            router.route("/googledrive", function(params) {
+                layout.showIn("#content", googleDriveView);
+            });
+
+            router.route("/onedrive", function(params) {
+                layout.showIn("#content", oneDriveView);
+            });
 
             var cloudServices = [
                 { text: "Dropbox", value: "dropbox" },
@@ -28,20 +45,16 @@
                 var value = $("#cloud-service").val();
                 switch(value) {
                 	case "dropbox": 
-                		layout.showIn("#content", dropboxView);
+                		router.navigate("/dropbox");
                 		break;
                 	case "googledrive": 
-                		layout.showIn("#content", googleDriveView);
+                		router.navigate("/googledrive");
                 		break;
                 	case "onedrive": 
-                		layout.showIn("#content", oneDriveView);
+                		router.navigate("/onedrive");
                 		break;
                 }
             };
-
-			var layout = new kendo.Layout("<header>Header<br><input id='cloud-service' value='1' /></header><section id='content'></section><footer></footer>");
-
-			layout.render($("#app"));
 
             $("#cloud-service").kendoDropDownList({
                 dataTextField: "text",
@@ -51,7 +64,8 @@
                 change: onChange
             });
 
-			layout.showIn("#content", dropboxView);
+            router.start();
+            router.navigate("/dropbox");
 			
 		});
     </script>
