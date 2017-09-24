@@ -11,29 +11,37 @@
 
 	<div id="app"></div>
 
-
-    
-
-
     <script>
         $(document).ready(function() {
+
+			var dropboxView = new kendo.View("<span>dropboxView</span>");
+			var googleDriveView = new kendo.View("<span>googleDriveView</span>");
+			var oneDriveView = new kendo.View("<span>oneDriveView</span>");
+
+            var cloudServices = [
+                { text: "Dropbox", value: "dropbox" },
+                { text: "Google Drive", value: "googledrive" },
+                { text: "One Drive", value: "onedrive" }
+            ];
+
+            function onChange() {
+                var value = $("#cloud-service").val();
+                switch(value) {
+                	case "dropbox": 
+                		layout.showIn("#content", dropboxView);
+                		break;
+                	case "googledrive": 
+                		layout.showIn("#content", googleDriveView);
+                		break;
+                	case "onedrive": 
+                		layout.showIn("#content", oneDriveView);
+                		break;
+                }
+            };
 
 			var layout = new kendo.Layout("<header>Header<br><input id='cloud-service' value='1' /></header><section id='content'></section><footer></footer>");
 
 			layout.render($("#app"));
-
-            function onChange() {
-                var value = $("#cloud-service").val();
-                console.log(value);
-
-                // TODO:
-            };
-
-            var cloudServices = [
-                { text: "Dropbox", value: "1" },
-                { text: "Google Drive", value: "2" },
-                { text: "One Drive", value: "3" }
-            ];
 
             $("#cloud-service").kendoDropDownList({
                 dataTextField: "text",
@@ -42,6 +50,9 @@
                 index: 0,
                 change: onChange
             });
+
+			layout.showIn("#content", dropboxView);
+			
 		});
     </script>
 </body>
