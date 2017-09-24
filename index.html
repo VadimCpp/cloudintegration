@@ -2,10 +2,38 @@
 <html>
 <head>
 	<title> Cloud integration </title>
+	<link href="lib/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="lib/styles/kendo.default.min.css" rel="stylesheet" />
+    <script src="lib/js/jquery.min.js"></script>
+    <script src="lib/js/kendo.all.min.js"></script>
 </head>
 <body>
-	<p>
-		TODO
-	</p>
+    <input id="cloud-service" value="1" />
+
+    <script>
+        $(document).ready(function() {
+
+            function onChange() {
+                var value = $("#cloud-service").val();
+                console.log(value);
+
+                // TODO:
+            };
+
+            var cloudServices = [
+                { text: "Dropbox", value: "1" },
+                { text: "Google Drive", value: "2" },
+                { text: "One Drive", value: "3" }
+            ];
+
+            $("#cloud-service").kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "value",
+                dataSource: cloudServices,
+                index: 0,
+                change: onChange
+            });
+		});
+    </script>
 </body>
 </html>
