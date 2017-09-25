@@ -30,14 +30,33 @@
 
 	<div id="app"></div>
 
+    <script id="layout" type="text/x-kendo-template">
+        <header>
+            <input id='cloud-service' value='1' />
+        </header>
+        <section id='content'></section>
+    </script>
+
+    <script id="dropbox-view" type="text/x-kendo-template">
+        <span>dropboxView</span>
+    </script>
+
+    <script id="google-drive-view" type="text/x-kendo-template">
+        <span>googleDriveView</span>
+    </script>
+
+    <script id="one-drive-view" type="text/x-kendo-template">
+        <span>oneDriveView</span>
+    </script>
+
     <script>
         $(document).ready(function() {
 
-            var dropboxView = new kendo.View("<span>dropboxView</span>");
-            var googleDriveView = new kendo.View("<span>googleDriveView</span>");
-            var oneDriveView = new kendo.View("<span>oneDriveView</span>");
-
-            var layout = new kendo.Layout("<header><input id='cloud-service' value='1' /></header><section id='content'></section>");
+            var dropboxView = new kendo.View("dropbox-view");
+            var googleDriveView = new kendo.View("google-drive-view");
+            var oneDriveView = new kendo.View("one-drive-view");
+            
+            var layout = new kendo.Layout("layout");
             layout.render($("#app"));
 
             var router = new kendo.Router();
