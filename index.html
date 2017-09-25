@@ -73,12 +73,6 @@
                 layout.showIn("#content", oneDriveView);
             });
 
-            var cloudServices = [
-                { text: "Dropbox", value: "dropbox" },
-                { text: "Google Drive", value: "googledrive" },
-                { text: "One Drive", value: "onedrive" }
-            ];
-
             function onChange() {
                 var value = $("#cloud-service").val();
                 switch(value) {
@@ -97,7 +91,11 @@
             $("#cloud-service").kendoDropDownList({
                 dataTextField: "text",
                 dataValueField: "value",
-                dataSource: cloudServices,
+                dataSource: [
+                    { text: "Dropbox", value: "dropbox" },
+                    { text: "Google Drive", value: "googledrive" },
+                    { text: "One Drive", value: "onedrive" }
+                ],
                 index: 0,
                 change: onChange
             });
