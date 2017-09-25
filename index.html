@@ -24,6 +24,10 @@
             background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
         }
+
+        section {
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
@@ -38,21 +42,30 @@
     </script>
 
     <script id="dropbox-view" type="text/x-kendo-template">
-        <span>dropboxView</span>
+        <h2>Dropbox</h2>
+        <button id="dropbox-button" data-role="button" data-bind="click: onClick"> Выбрать файл </button>
     </script>
 
     <script id="google-drive-view" type="text/x-kendo-template">
-        <span>googleDriveView</span>
+        <h2>Google Drive</h2>
+        <button id="google-drive-button" data-role="button" disabled> Выбрать файл </button>
     </script>
 
     <script id="one-drive-view" type="text/x-kendo-template">
-        <span>oneDriveView</span>
+        <h2>One Drive</h2>
+        <button id="one-drive-button" data-role="button" disabled> Выбрать файл </button>
     </script>
 
     <script>
         $(document).ready(function() {
 
-            var dropboxView = new kendo.View("dropbox-view");
+            var dropboxView = new kendo.View("dropbox-view", {
+                model: {
+                    onClick: function() {
+                        console.log('onClick');
+                    }
+                }
+            });
             var googleDriveView = new kendo.View("google-drive-view");
             var oneDriveView = new kendo.View("one-drive-view");
             
