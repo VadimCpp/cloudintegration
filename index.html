@@ -43,6 +43,9 @@
 
     <script id="dropbox-view" type="text/x-kendo-template">
         <h2>Dropbox</h2>
+        <p>
+            Access Token: <input class="k-textbox" data-bind="value: accessToken"/>
+        </p>
         <button id="dropbox-button" data-role="button" data-bind="click: onClick"> Выбрать файл </button>
     </script>
 
@@ -61,6 +64,7 @@
 
             var dropboxView = new kendo.View("dropbox-view", {
                 model: {
+                    accessToken: "insert your access token",
                     onClick: function() {
                         console.log('onClick');
                     }
