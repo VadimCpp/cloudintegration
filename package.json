@@ -1,0 +1,15 @@
+{
+  "name": "cloudintegration",
+  "version": "1.0.0",
+  "description": "website",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:VadimCpp/cloudintegration.git"
+  },
+  "author": "vadimcpp",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.13.0",
+    "gulp": "^3.9.1"
+  }
+}

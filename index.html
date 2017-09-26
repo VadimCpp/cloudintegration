@@ -27,6 +27,16 @@
 
         section {
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        div.cloud-view {
+            padding: 20px;
+            border-radius: 20px;
+            width: 60%;
+            border: 1px dotted rgba(0, 0, 0, .2); 
         }
     </style>
 </head>
@@ -36,15 +46,18 @@
 
     <script id="layout" type="text/x-kendo-template">
         <header>
-            <input id='cloud-service' value='1' />
+            <input id="cloud-service"/>
         </header>
-        <section id='content'></section>
+        <section>
+            <div id="content" class="cloud-view">
+            </div>
+        </section>
     </script>
 
     <script id="dropbox-view" type="text/x-kendo-template">
         <h2>Dropbox</h2>
         <p>
-            Access Token: <input class="k-textbox" data-bind="value: accessToken"/>
+            Dropbox App Key: <input class="k-textbox" data-bind="value: appKey, disabled: appKeyDisabled" />
         </p>
         <button id="dropbox-button" data-role="button" data-bind="click: onClick"> Выбрать файл </button>
     </script>
@@ -64,9 +77,37 @@
 
             var dropboxView = new kendo.View("dropbox-view", {
                 model: {
-                    accessToken: "insert your access token",
+                    appKey: "casp2pq1i6yw79s",
+                    appKeyDisabled: true,
                     onClick: function() {
-                        console.log('onClick');
+                        Dropbox.choose({
+
+                            // Required. Called when a user selects an item in the Chooser.
+                            success: function(files) {
+                                alert("Here's the file link: " + files[0].link)
+                            },
+
+                            // Optional. Called when the user closes the dialog without selecting a file
+                            // and does not include any parameters.
+                            cancel: function() {
+                                console.warn('Dropbox cancelled');
+                            },
+
+                            // Optional. "preview" (default) is a preview link to the document for sharing,
+                            // "direct" is an expiring link to download the contents of the file. For more
+                            // information about link types, see Link types below.
+                            linkType: "preview", // or "direct"
+
+                            // Optional. A value of false (default) limits selection to a single file, while
+                            // true enables multiple file selection.
+                            multiselect: false, // or true
+
+                            // Optional. This is a list of file extensions. If specified, the user will
+                            // only be able to select files with these extensions. You may also specify
+                            // file types, such as "video" or "images" in the list. For more information,
+                            // see File types below. By default, all extensions are allowed.
+                            //extensions: ['.pdf', '.doc', '.docx'],
+                        });
                     }
                 }
             });
@@ -122,5 +163,9 @@
 			
 		});
     </script>
+
+    <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="casp2pq1i6yw79s">
+    </script>
+
 </body>
 </html>
