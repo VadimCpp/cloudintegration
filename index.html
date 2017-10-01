@@ -64,7 +64,7 @@
 
     <script id="google-drive-view" type="text/x-kendo-template">
         <h2>Google Drive</h2>
-        <button id="google-drive-button" data-role="button" disabled> Выбрать файл </button>
+        <button id="google-drive-button" data-role="button" data-bind="click: onClick"> Выбрать файл </button>
     </script>
 
     <script id="one-drive-view" type="text/x-kendo-template">
@@ -111,7 +111,13 @@
                     }
                 }
             });
-            var googleDriveView = new kendo.View("google-drive-view");
+            var googleDriveView = new kendo.View("google-drive-view", {
+                model: {
+                    onClick: function() {
+                        alert("Not implemented");
+                    }
+                }
+            });
             var oneDriveView = new kendo.View("one-drive-view");
             
             var layout = new kendo.Layout("layout");
@@ -159,7 +165,7 @@
             });
 
             router.start();
-            router.navigate("/dropbox");
+            router.navigate("/googledrive");
 			
 		});
     </script>
