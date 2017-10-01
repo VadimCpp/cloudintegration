@@ -120,6 +120,10 @@
                         // The Client ID obtained from the Google API Console. Replace with your own Client ID.
                         var clientId = "890137917405-f7kas7nls3oh0n1hclgkkh83smpdpq44.apps.googleusercontent.com"
 
+                        // Replace with your own project number from console.developers.google.com.
+                        // See "Project number" under "IAM & Admin" > "Settings"
+                        var appId = "890137917405";
+
                         // Scope to use to access user's Drive items.
                         var scope = ['https://www.googleapis.com/auth/drive'];
 
@@ -156,26 +160,35 @@
 
                         // Create and render a Picker object for picking user Photos.
                         function createPicker() {
-                            if (pickerApiLoaded && oauthToken) {
-                                var picker = new google.picker.PickerBuilder().
-                                addView(google.picker.ViewId.DOCS).
-                                setOAuthToken(oauthToken).
-                                setDeveloperKey(developerKey).
-                                setCallback(pickerCallback).
-                                build();
-                                picker.setVisible(true);
-                            }
+                         if (pickerApiLoaded && oauthToken) {
+                            var view = new google.picker.View(google.picker.ViewId.DOCS);
+                            //view.setMimeTypes("image/png,image/jpeg,image/jpg");
+                            var picker = new google.picker.PickerBuilder()
+                                .enableFeature(google.picker.Feature.NAV_HIDDEN)
+                                .enableFeature(google.picker.Feature.MULTISELECT_ENABLED)
+                                .setAppId(appId)
+                                .setOAuthToken(oauthToken)
+                                .addView(view)
+                                .setDeveloperKey(developerKey)
+                                .setCallback(pickerCallback)
+                                .build();
+                             picker.setVisible(true);
+                          }
                         }
 
                         // A simple callback implementation.
                         function pickerCallback(data) {
                             var url = 'nothing';
+                            var message = 'You picked: ' + url;
                             if (data[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
                                 var doc = data[google.picker.Response.DOCUMENTS][0];
                                 url = doc[google.picker.Document.URL];
+                                message = 'You picked: ' + url;
+                                alert(message);
+                            } else if (data[google.picker.Response.ACTION] == google.picker.Action.CANCEL) {
+                                message = 'cancelled';
+                                alert(message);
                             }
-                            var message = 'You picked: ' + url;
-                            alert(message);
                         }
 
                         onApiLoad();
